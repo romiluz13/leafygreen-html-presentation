@@ -49,6 +49,21 @@ open my-talk.html
 
 ---
 
+## Example 5: Demo template deck
+
+**Prompt:**
+> Create a general demo presentation with placeholders showing every slide pattern
+
+**Commands:**
+```bash
+python scripts/build-reveal.py examples/demo-slides.json examples/demo-presentation.html
+open examples/demo-presentation.html
+```
+
+The demo includes title, agenda, section dividers, bullets with fragments, blockquote, table, phrasebook cards, code block, takeaways, and Q&A — all with placeholder copy and speaker notes.
+
+---
+
 ## slides.json schema
 
 ```json
@@ -106,4 +121,10 @@ open my-talk.html
 }
 ```
 
-Slide types: `title`, `section`, `content`, `table`, `glossary`, `closing`
+Slide types: `title`, `section`, `content`, `table`, `glossary`, `showcase`, `code`, `closing`
+
+Optional fields:
+- `footer` (deck root) — custom footer text, default `MongoDB · Internal`
+- `contentSlide: true` on `content` slides — adds framed card surface
+- `showcase` slides use a `cards` array: `{ "title", "lines": [] }`
+- `code` slides use `code` (string) and optional `caption`

@@ -41,9 +41,11 @@ Restart Cursor or start a new chat, then invoke:
 git clone https://github.com/romiluz13/leafygreen-html-presentation.git
 cd leafygreen-html-presentation
 
-python scripts/build-reveal.py examples/sample-slides.json my-deck.html
-open my-deck.html
+python scripts/build-reveal.py examples/demo-slides.json demo-presentation.html
+open demo-presentation.html
 ```
+
+The demo deck (`examples/demo-slides.json`) showcases every slide pattern — design system cards, palette tokens, tables, phrasebook, code block, and presenter shortcuts.
 
 ## Presenter shortcuts
 
@@ -62,6 +64,7 @@ leafygreen-html-presentation/
 ├── README.md
 ├── examples.md
 ├── examples/
+│   ├── demo-slides.json     # Full pattern showcase (build demo from this)
 │   └── sample-slides.json
 ├── references/
 │   ├── design-tokens.md     # palette.* → CSS (required reading)

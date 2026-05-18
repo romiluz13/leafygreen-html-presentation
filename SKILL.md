@@ -88,6 +88,17 @@ Full token reference: [design-tokens.md](references/design-tokens.md)
 
 Stylesheet (paste verbatim): [leafygreen-theme.css](references/leafygreen-theme.css)
 
+## reveal.js layout (header / footer chrome)
+
+Fixed `.lg-header` and `.lg-footer` sit outside the reveal canvas. The theme:
+
+- Insets `.reveal` with `--lg-chrome-top` / `--lg-chrome-bottom` so slides centre in the remaining viewport
+- Uses flexbox on sections (`justify-content: center`) for vertical centring
+- Compacts `.content-slide` and `.small` card grids so dense slides fit without clipping
+- Sets `center: true` and `margin: 0.08` in `Reveal.initialize`
+
+If a slide still overflows, add `class="small"` to the section or split content across slides.
+
 ## reveal.js config
 
 Always initialize with notes, highlight, hash, and slide numbers:

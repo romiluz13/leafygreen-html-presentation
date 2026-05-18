@@ -14,7 +14,7 @@ When a deck needs **live LeafyGreen components** (Button, Card, Badge, Table, Ic
 Run all steps in order from `setup-leafygreen`:
 
 1. Vite + React + TypeScript scaffold
-2. Install packages (`leafygreen-provider`, `button`, `typography`, `tokens`, `icon`, `icon-button`, `logo`) + `vite-plugin-node-polyfills`
+2. Install packages from `setup-leafygreen` Step 1, plus `@leafygreen-ui/palette` for colors (`leafygreen-provider`, `button`, `typography`, `tokens`, `palette`, `icon`, `icon-button`, `logo`) + `vite-plugin-node-polyfills`
 3. `vite.config.ts` — `dedupe` + `alias` for React (prevents invalid hook call)
 4. `main.tsx` — `LeafyGreenProvider` as **default import**, `darkMode={true}`
 5. `index.css` — **replace entire file** with setup-leafygreen Step 4 fonts + body reset only
@@ -55,5 +55,5 @@ Keep `slides.json` or `slides.ts` as single content source. Export to HTML:
 
 ```bash
 npx tsx -e "import { slides } from './src/slides.ts'; ..."
-python ~/.cursor/skills/mongodb-presentations/scripts/build-reveal.py slides.json shareable.html
+python ~/.cursor/skills/leafygreen-html-presentation/scripts/build-reveal.py slides.json shareable.html
 ```

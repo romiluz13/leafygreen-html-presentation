@@ -38,6 +38,10 @@
   --palette-blue-base: #016BF8;
   --palette-black: #000000;
   --palette-white: #FFFFFF;
+
+  /* Fixed header/footer chrome — keep slide content centred in the remaining viewport */
+  --lg-chrome-top: 52px;
+  --lg-chrome-bottom: 44px;
 }
 
 body {
@@ -51,9 +55,12 @@ body {
   background: var(--palette-green-dark3);
 }
 
+/* Inset reveal canvas below header and above footer */
 .reveal {
   font-family: 'Euclid Circular A', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   color: var(--palette-gray-light2);
+  top: var(--lg-chrome-top) !important;
+  height: calc(100% - var(--lg-chrome-top) - var(--lg-chrome-bottom)) !important;
 }
 
 .reveal h1,
@@ -74,12 +81,20 @@ body {
 
 .reveal .slides section {
   text-align: left;
+  display: flex !important;
+  flex-direction: column;
+  justify-content: center;
+  align-items: stretch;
+  height: 100%;
+  padding: 0 1.25em;
+  box-sizing: border-box;
 }
 
 .reveal .slides section.title-slide,
 .reveal .slides section.section-slide,
 .reveal .slides section.center-slide {
   text-align: center;
+  align-items: center;
 }
 
 /* Slide frame — mirrors React deck Card on palette.black */
@@ -87,7 +102,30 @@ body {
   background: var(--palette-black);
   border: 1px solid var(--palette-gray-dark2);
   border-radius: 16px;
-  padding: 1.5em 2em;
+  padding: 1em 1.4em;
+  max-height: 100%;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.reveal .slides section.content-slide h2 {
+  font-size: 1.35em;
+  margin-bottom: 0.35em;
+}
+
+.reveal .slides section.content-slide .lg-card-grid {
+  gap: 0.35em;
+  font-size: 0.58em;
+}
+
+.reveal .slides section.content-slide .lg-card {
+  padding: 0.5em 0.7em;
+  margin-bottom: 0;
+}
+
+.reveal .slides section.content-slide .lg-card p {
+  margin: 0.15em 0;
+  line-height: 1.3;
 }
 
 .reveal .title-slide h1 {
@@ -174,8 +212,23 @@ body {
 .reveal .lg-card-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 0.5em;
-  font-size: 0.7em;
+  gap: 0.45em;
+  font-size: 0.68em;
+}
+
+.reveal section.small .lg-card-grid {
+  gap: 0.35em;
+  font-size: 0.58em;
+}
+
+.reveal section.small .lg-card {
+  padding: 0.5em 0.7em;
+  margin-bottom: 0;
+}
+
+.reveal section.small .lg-card p {
+  margin: 0.15em 0;
+  line-height: 1.3;
 }
 
 /* Code — maps to @leafygreen-ui/code dark surface */
@@ -235,7 +288,7 @@ body {
 
 .lg-footer {
   position: fixed;
-  bottom: 12px;
+  bottom: 28px;
   left: 20px;
   font-family: 'Euclid Circular A', sans-serif;
   font-size: 11px;

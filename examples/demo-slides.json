@@ -1,0 +1,199 @@
+{
+  "title": "LeafyGreen HTML Presentation",
+  "footer": "LeafyGreen · Demo template",
+  "slides": [
+    {
+      "type": "title",
+      "title": "LeafyGreen HTML Presentation",
+      "subtitle": "MongoDB design system slides in one shareable file",
+      "badge": "Demo Template",
+      "notes": "Welcome. This deck demonstrates every slide pattern the skill supports. Press S for speaker notes, O for overview, F for fullscreen."
+    },
+    {
+      "type": "content",
+      "title": "Agenda",
+      "bullets": [
+        "What this skill delivers — technically and visually",
+        "LeafyGreen design tokens, fonts, and components",
+        "Every slide pattern: bullets, tables, cards, code",
+        "Plain-language content patterns for mixed rooms",
+        "Takeaways and Q&A"
+      ],
+      "notes": "Keep this under 60 seconds. This is a meta-demo of the skill itself."
+    },
+    {
+      "type": "section",
+      "title": "Part 1",
+      "subtitle": "Design system & delivery",
+      "notes": "Transition: 'First, what makes these slides look and feel like MongoDB.'"
+    },
+    {
+      "type": "showcase",
+      "title": "LeafyGreen design system",
+      "subtitle": "Every color maps to a palette.* token — no random hex.",
+      "cards": [
+        {
+          "title": "Typography",
+          "lines": [
+            "MongoDB Value Serif for headings",
+            "Euclid Circular A for body text",
+            "CloudFront font URLs from setup-leafygreen"
+          ]
+        },
+        {
+          "title": "Colors",
+          "lines": [
+            "palette.green.base — headings & accents (#00ED64)",
+            "palette.gray.light2 — body text (#E8EDF4)",
+            "palette.green.dark3 — background (#001E2B)"
+          ]
+        },
+        {
+          "title": "Components",
+          "lines": [
+            "Badges, cards, tables, blockquotes",
+            "Maps to @leafygreen-ui/* in React",
+            "HTML patterns mirror leafygreen-authoring"
+          ]
+        },
+        {
+          "title": "Delivery",
+          "lines": [
+            "Single HTML file — no npm for viewers",
+            "reveal.js via CDN (notes, fragments, overview)",
+            "JSON builder: python scripts/build-reveal.py"
+          ]
+        }
+      ],
+      "notes": "Point out fonts, green accents, card surfaces, and token names. Mention reveal.js shortcuts: O overview, S speaker view, F fullscreen."
+    },
+    {
+      "type": "content",
+      "title": "What you get",
+      "contentSlide": true,
+      "bullets": [
+        "One .html file — email, Slack, or static host",
+        "LeafyGreen palette mapped to CSS custom properties",
+        "Speaker notes on every slide (press S)",
+        "Animated fragments, overview grid, syntax highlighting",
+        "Bridge to setup-leafygreen for interactive React decks"
+      ],
+      "notes": "Emphasize zero build step for viewers. Developers can still use the React path for live components."
+    },
+    {
+      "type": "table",
+      "title": "Key palette tokens",
+      "table": {
+        "headers": ["Token", "Hex", "Use in slides"],
+        "rows": [
+          ["palette.green.dark3", "#001E2B", "Viewport background, title slides"],
+          ["palette.green.dark2", "#023430", "Section divider slides"],
+          ["palette.green.base", "#00ED64", "H2, accents, controls, table headers"],
+          ["palette.gray.light2", "#E8EDF4", "Body text, H1 on content slides"],
+          ["palette.gray.base", "#89979B", "Muted text, footer, slide numbers"],
+          ["palette.gray.dark2", "#3D4F58", "Borders — tables, cards, slide frame"]
+        ]
+      },
+      "notes": "Full map in references/design-tokens.md. React apps import from @leafygreen-ui/palette."
+    },
+    {
+      "type": "section",
+      "title": "Part 2",
+      "subtitle": "Content patterns",
+      "notes": "Transition: 'Now the patterns you fill with your own story.'"
+    },
+    {
+      "type": "content",
+      "title": "Lead with outcomes, not jargon",
+      "contentSlide": true,
+      "bullets": [
+        "First point — explain the benefit in everyday language",
+        "Second point — use an analogy before an acronym",
+        "Third point — one idea per slide keeps the room with you",
+        "Fourth point — fragments animate as you speak (try ← →)"
+      ],
+      "notes": "Emphasize plain language. contentSlide: true adds the framed card surface."
+    },
+    {
+      "type": "content",
+      "title": "A key insight",
+      "quote": "Replace this with a quote, pull-out stat, or memorable one-liner that anchors the section.",
+      "notes": "Pause after the quote. Let it land before moving on."
+    },
+    {
+      "type": "table",
+      "title": "At a glance",
+      "table": {
+        "headers": ["Column A", "Column B", "Column C"],
+        "rows": [
+          ["Row label 1", "Detail or metric", "Short note"],
+          ["Row label 2", "Detail or metric", "Short note"],
+          ["Row label 3", "Detail or metric", "Short note"],
+          ["Row label 4", "Detail or metric", "Short note"]
+        ]
+      },
+      "notes": "Walk row by row — don't read the table verbatim. class=\"small\" auto-applies when rows > 4."
+    },
+    {
+      "type": "glossary",
+      "title": "Terms you'll hear",
+      "glossary": [
+        {
+          "term": "Term One",
+          "plain": "Plain-English definition in one sentence — like USB-C for AI.",
+          "askBuilders": "How does your team use this today?"
+        },
+        {
+          "term": "Term Two",
+          "plain": "Another definition the whole room can repeat back.",
+          "askBuilders": "What breaks if we get this wrong?"
+        },
+        {
+          "term": "Term Three",
+          "plain": "Third term — phrasebook slides help mixed audiences.",
+          "askBuilders": "Where does the data live?"
+        },
+        {
+          "term": "Term Four",
+          "plain": "Fourth term — cover 3–4 live, rest is reference.",
+          "askBuilders": "What does this cost at our scale?"
+        }
+      ],
+      "notes": "Mixed room? Spend 2 minutes here. Technical room? Skip to next slide."
+    },
+    {
+      "type": "code",
+      "title": "Build from JSON",
+      "code": "# One command — branded HTML out\npython scripts/build-reveal.py slides.json my-talk.html\n\n# Slide types in JSON:\n# title | section | content | table\n# glossary | showcase | code | closing",
+      "caption": "See examples/demo-slides.json for the full schema.",
+      "notes": "Show the repo README. Mention /leafygreen-html-presentation skill in Cursor."
+    },
+    {
+      "type": "content",
+      "title": "Presenter shortcuts",
+      "bullets": [
+        "← → — previous / next slide",
+        "O — overview grid of all slides",
+        "S — speaker notes window (two-screen mode)",
+        "F — fullscreen · Esc — exit overview or notes"
+      ],
+      "notes": "Demo S live if two screens available. Hash URLs work — share a link to a specific slide."
+    },
+    {
+      "type": "content",
+      "title": "Three things to remember",
+      "bullets": [
+        "One file, full MongoDB branding, zero npm for the audience",
+        "JSON or HTML — pick your authoring path",
+        "Plain language + phrasebook = mixed rooms that stay engaged"
+      ],
+      "notes": "Recap in 30 seconds. Point to github.com/romiluz13/leafygreen-html-presentation"
+    },
+    {
+      "type": "closing",
+      "title": "Questions?",
+      "subtitle": "github.com/romiluz13/leafygreen-html-presentation",
+      "notes": "Thank the room. Share the repo link. Invite them to fork the demo JSON and make it their own."
+    }
+  ]
+}

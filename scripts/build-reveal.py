@@ -99,13 +99,53 @@ def slide_html(slide: dict) -> str:
         {notes_block}
       </section>"""
 
+    if stype == "showcase" and slide.get("cards"):
+        subtitle = esc(slide.get("subtitle", ""))
+        subtitle_html = (
+            f'<p class="lg-muted" style="margin-bottom: 0.6em;">{subtitle}</p>' if subtitle else ""
+        )
+        cards = []
+        for card in slide["cards"]:
+            lines = "".join(f"<p>{esc(line)}</p>" for line in card.get("lines", []))
+            cards.append(
+                f"""        <div class="lg-card fragment fade-up">
+          <strong class="lg-accent">{esc(card["title"])}</strong>
+          {lines}
+        </div>"""
+            )
+        grid = "\n".join(cards)
+        return f"""      <section class="content-slide">
+        <h2>{title}</h2>
+        {subtitle_html}
+        <div class="lg-card-grid">
+{grid}
+        </div>
+        {notes_block}
+      </section>"""
+
+    if stype == "code" and slide.get("code"):
+        caption = esc(slide.get("caption", ""))
+        caption_html = f'<p class="lg-muted fragment">{caption}</p>' if caption else ""
+        code = esc(slide["code"])
+        return f"""      <section>
+        <h2>{title}</h2>
+        <pre><code data-trim data-line-numbers>
+{code}
+        </code></pre>
+        {caption_html}
+        {notes_block}
+      </section>"""
+
     body_parts = []
     if slide.get("bullets"):
         body_parts.append(bullets(slide["bullets"]))
     if slide.get("quote"):
         body_parts.append(f"<blockquote>{esc(slide['quote'])}</blockquote>")
 
-    return f"""      <section>
+    section_class = "content-slide" if slide.get("contentSlide") else ""
+    class_attr = f' class="{section_class}"' if section_class else ""
+
+    return f"""      <section{class_attr}>
         <h2>{title}</h2>
         {"".join(body_parts)}
         {notes_block}
@@ -114,6 +154,7 @@ def slide_html(slide: dict) -> str:
 
 def build(deck: dict) -> str:
     title = esc(deck.get("title", "Presentation"))
+    footer = esc(deck.get("footer", "MongoDB · Internal"))
     slides = deck.get("slides", [])
     sections = "\n\n".join(slide_html(s) for s in slides)
     return f"""<!doctype html>
@@ -134,7 +175,7 @@ def build(deck: dict) -> str:
     {LOGO_SVG}
     <span class="lg-header-title">{title}</span>
   </header>
-  <div class="lg-footer">MongoDB · Internal</div>
+  <div class="lg-footer">{footer}</div>
   <div class="reveal">
     <div class="slides">
 
@@ -150,6 +191,8 @@ def build(deck: dict) -> str:
       hash: true,
       slideNumber: 'c/t',
       transition: 'slide',
+      center: true,
+      margin: 0.08,
       plugins: [ RevealNotes, RevealHighlight ]
     }});
   </script>
