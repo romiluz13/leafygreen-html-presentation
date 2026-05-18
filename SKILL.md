@@ -99,6 +99,8 @@ Fixed `.lg-header` and `.lg-footer` sit outside the reveal canvas. The theme:
 
 If a slide still overflows, add `class="small"` to the section or split content across slides.
 
+The JSON builder auto-splits glossary slides (>4 terms) and bullet slides (>5 items), and applies `small` / `dense` classes when content is long.
+
 ## reveal.js config
 
 Always initialize with notes, highlight, hash, and slide numbers:

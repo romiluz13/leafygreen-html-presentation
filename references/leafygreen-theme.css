@@ -263,6 +263,45 @@ body {
 
 .reveal section.small { font-size: 0.82em; }
 
+/* Auto-applied when slides have >5 bullets, >6 table rows, or split glossary chunks */
+.reveal section.dense {
+  font-size: 0.74em;
+}
+
+.reveal section.dense h2 {
+  font-size: 1.15em;
+  margin-bottom: 0.25em;
+}
+
+.reveal section.dense ul,
+.reveal section.dense ol {
+  line-height: 1.35;
+  margin: 0.2em 0 0;
+}
+
+.reveal section.dense li {
+  margin-bottom: 0.2em;
+}
+
+.reveal section.dense blockquote {
+  padding: 0.55em 0.75em;
+  margin-top: 0.35em;
+  font-size: 0.95em;
+}
+
+.reveal section.dense table.lg-table {
+  font-size: 0.55em;
+}
+
+.reveal section.small.dense .lg-card-grid {
+  font-size: 0.52em;
+  gap: 0.28em;
+}
+
+.reveal section.small.dense .lg-card {
+  padding: 0.4em 0.55em;
+}
+
 /* Header — maps to MongoDBLogoMark color="green-base" + title */
 .lg-header {
   position: fixed;

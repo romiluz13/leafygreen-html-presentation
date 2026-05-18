@@ -32,6 +32,101 @@ def table(headers: list[str], rows: list[list[str]]) -> str:
     return f'<table class="lg-table"><thead><tr>{thead}</tr></thead><tbody>{body}</tbody></table>'
 
 
+def section_class_attr(*names: str) -> str:
+    cleaned = [n for n in names if n]
+    return f' class="{" ".join(cleaned)}"' if cleaned else ""
+
+
+def slide_sections(slide: dict) -> list[str]:
+    stype = slide.get("type", "content")
+    title = slide.get("title", "")
+    notes = slide.get("notes", "")
+
+    if stype == "title":
+        return [slide_html(slide)]
+
+    if stype == "glossary" and slide.get("glossary"):
+        items = slide["glossary"]
+        chunk_size = 4
+        chunks = [items[i : i + chunk_size] for i in range(0, len(items), chunk_size)]
+        sections: list[str] = []
+        for index, chunk in enumerate(chunks):
+            chunk_slide = {
+                **slide,
+                "title": title if len(chunks) == 1 else f"{title} ({index + 1}/{len(chunks)})",
+                "glossary": chunk,
+            }
+            sections.append(glossary_html(chunk_slide))
+        return sections
+
+    if stype == "content" and slide.get("bullets") and len(slide["bullets"]) > 5:
+        chunks = [slide["bullets"][i : i + 5] for i in range(0, len(slide["bullets"]), 5)]
+        sections = []
+        for index, chunk in enumerate(chunks):
+            chunk_slide = {
+                **slide,
+                "title": title if len(chunks) == 1 else f"{title} ({index + 1}/{len(chunks)})",
+                "bullets": chunk,
+                "quote": slide.get("quote") if index == 0 else None,
+            }
+            sections.append(content_html(chunk_slide))
+        return sections
+
+    return [slide_html(slide)]
+
+
+def glossary_html(slide: dict) -> str:
+    title = esc(slide.get("title", ""))
+    notes = esc(slide.get("notes", ""))
+    notes_block = f'<aside class="notes">{notes}</aside>' if notes else ""
+    cards = []
+    for item in slide["glossary"]:
+        cards.append(
+            f"""        <div class="lg-card fragment">
+          <strong class="lg-accent">{esc(item["term"])}</strong>
+          <p>{esc(item["plain"])}</p>
+          <p class="lg-muted">Ask builders: “{esc(item["askBuilders"])}”</p>
+        </div>"""
+        )
+    grid = "\n".join(cards)
+    return f"""      <section class="small">
+        <h2>{title}</h2>
+        <div class="lg-card-grid">
+{grid}
+        </div>
+        {notes_block}
+      </section>"""
+
+
+def content_density_classes(slide: dict) -> str:
+    classes: list[str] = []
+    bullet_list = slide.get("bullets", [])
+    if slide.get("contentSlide"):
+        classes.append("content-slide")
+    if len(bullet_list) >= 5 or slide.get("quote") or max((len(b) for b in bullet_list), default=0) > 90:
+        classes.append("small")
+    if len(bullet_list) > 5:
+        classes.append("dense")
+    return " ".join(classes)
+
+
+def content_html(slide: dict) -> str:
+    title = esc(slide.get("title", ""))
+    notes = esc(slide.get("notes", ""))
+    notes_block = f'<aside class="notes">{notes}</aside>' if notes else ""
+    body_parts = []
+    if slide.get("bullets"):
+        body_parts.append(bullets(slide["bullets"]))
+    if slide.get("quote"):
+        body_parts.append(f"<blockquote>{esc(slide['quote'])}</blockquote>")
+    class_attr = section_class_attr(*content_density_classes(slide).split())
+    return f"""      <section{class_attr}>
+        <h2>{title}</h2>
+        {"".join(body_parts)}
+        {notes_block}
+      </section>"""
+
+
 def slide_html(slide: dict) -> str:
     stype = slide.get("type", "content")
     title = esc(slide.get("title", ""))
@@ -73,31 +168,21 @@ def slide_html(slide: dict) -> str:
 
     if stype == "table" and slide.get("table"):
         t = slide["table"]
-        small = ' class="small"' if len(t.get("rows", [])) > 4 else ""
-        return f"""      <section{small}>
+        row_count = len(t.get("rows", []))
+        classes = []
+        if row_count > 3:
+            classes.append("small")
+        if row_count > 6:
+            classes.append("dense")
+        class_attr = section_class_attr(*classes)
+        return f"""      <section{class_attr}>
         <h2>{title}</h2>
         {table(t["headers"], t["rows"])}
         {notes_block}
       </section>"""
 
     if stype == "glossary" and slide.get("glossary"):
-        cards = []
-        for item in slide["glossary"]:
-            cards.append(
-                f"""        <div class="lg-card fragment">
-          <strong class="lg-accent">{esc(item["term"])}</strong>
-          <p>{esc(item["plain"])}</p>
-          <p class="lg-muted">Ask builders: “{esc(item["askBuilders"])}”</p>
-        </div>"""
-            )
-        grid = "\n".join(cards)
-        return f"""      <section class="small">
-        <h2>{title}</h2>
-        <div class="lg-card-grid">
-{grid}
-        </div>
-        {notes_block}
-      </section>"""
+        return glossary_html(slide)
 
     if stype == "showcase" and slide.get("cards"):
         subtitle = esc(slide.get("subtitle", ""))
@@ -136,27 +221,17 @@ def slide_html(slide: dict) -> str:
         {notes_block}
       </section>"""
 
-    body_parts = []
-    if slide.get("bullets"):
-        body_parts.append(bullets(slide["bullets"]))
-    if slide.get("quote"):
-        body_parts.append(f"<blockquote>{esc(slide['quote'])}</blockquote>")
-
-    section_class = "content-slide" if slide.get("contentSlide") else ""
-    class_attr = f' class="{section_class}"' if section_class else ""
-
-    return f"""      <section{class_attr}>
-        <h2>{title}</h2>
-        {"".join(body_parts)}
-        {notes_block}
-      </section>"""
+    return content_html(slide)
 
 
 def build(deck: dict) -> str:
     title = esc(deck.get("title", "Presentation"))
     footer = esc(deck.get("footer", "MongoDB · Internal"))
     slides = deck.get("slides", [])
-    sections = "\n\n".join(slide_html(s) for s in slides)
+    all_sections: list[str] = []
+    for slide in slides:
+        all_sections.extend(slide_sections(slide))
+    sections = "\n\n".join(all_sections)
     return f"""<!doctype html>
 <html lang="en">
 <head>
@@ -208,7 +283,8 @@ def main() -> int:
     src, dst = Path(sys.argv[1]), Path(sys.argv[2])
     deck = json.loads(src.read_text(encoding="utf-8"))
     dst.write_text(build(deck), encoding="utf-8")
-    print(f"Wrote {len(deck.get('slides', []))} slides → {dst}")
+    section_count = sum(len(slide_sections(s)) for s in deck.get("slides", []))
+    print(f"Wrote {section_count} slides → {dst}")
     return 0
 
 
