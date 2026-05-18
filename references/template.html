@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Presentation Title</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5/dist/reveal.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5/dist/theme/black.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5/plugin/highlight/monokai.css">
+  <style>
+    /* Paste full contents of leafygreen-theme.css here — do not edit piecemeal */
+  </style>
+</head>
+<body>
+  <header class="lg-header" aria-label="MongoDB">
+    <img class="lg-header-mark" src="references/mongodb-logomark.svg" width="24" height="24" alt="" />
+    <span class="lg-header-title">Presentation Title</span>
+  </header>
+  <div class="lg-footer">MongoDB · Internal</div>
+
+  <div class="reveal">
+    <div class="slides">
+
+      <!-- palette.green.dark3 -->
+      <section class="title-slide" data-background-color="#001E2B">
+        <span class="lg-badge">Month Year</span>
+        <h1>Presentation Title</h1>
+        <h3>Subtitle in plain language</h3>
+        <aside class="notes">Welcome. Set expectations for the room.</aside>
+      </section>
+
+      <section>
+        <h2>Agenda</h2>
+        <ol>
+          <li class="fragment fade-up">First topic</li>
+          <li class="fragment fade-up">Second topic</li>
+          <li class="fragment fade-up">Third topic</li>
+        </ol>
+        <aside class="notes">Keep this under 60 seconds.</aside>
+      </section>
+
+      <!-- palette.green.dark2 -->
+      <section class="section-slide" data-background-color="#023430">
+        <p class="section-label">Part 1</p>
+        <h2>Section title</h2>
+        <aside class="notes">Transition line for the speaker.</aside>
+      </section>
+
+      <!-- palette.green.dark3 -->
+      <section class="title-slide center-slide" data-background-color="#001E2B">
+        <h1>Questions?</h1>
+        <h3>Thank you</h3>
+        <aside class="notes">Thank the room.</aside>
+      </section>
+
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/reveal.js@5/dist/reveal.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/reveal.js@5/plugin/notes/notes.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/reveal.js@5/plugin/highlight/highlight.js"></script>
+  <script>
+    Reveal.initialize({
+      hash: true,
+      slideNumber: 'c/t',
+      transition: 'slide',
+      plugins: [ RevealNotes, RevealHighlight ]
+    });
+  </script>
+</body>
+</html>

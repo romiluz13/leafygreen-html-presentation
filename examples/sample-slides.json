@@ -1,0 +1,66 @@
+{
+  "title": "LeafyGreen HTML Presentation",
+  "slides": [
+    {
+      "type": "title",
+      "title": "LeafyGreen HTML Presentation",
+      "subtitle": "MongoDB-branded slides in one shareable file",
+      "badge": "Demo",
+      "notes": "Welcome. This sample deck shows the skill output. Press S for speaker notes."
+    },
+    {
+      "type": "content",
+      "title": "What you get",
+      "bullets": [
+        "Single HTML file — email, Slack, or static host",
+        "LeafyGreen colors and MongoDB fonts",
+        "reveal.js speaker notes, overview, and fragments",
+        "JSON builder for repeatable decks"
+      ],
+      "notes": "Emphasize zero npm for viewers."
+    },
+    {
+      "type": "section",
+      "title": "Part 1",
+      "subtitle": "Design tokens",
+      "notes": "Transition to design section."
+    },
+    {
+      "type": "table",
+      "title": "Key palette tokens",
+      "table": {
+        "headers": ["Token", "Hex", "Use"],
+        "rows": [
+          ["palette.green.dark3", "#001E2B", "Background"],
+          ["palette.green.base", "#00ED64", "Headings & accents"],
+          ["palette.gray.light2", "#E8EDF4", "Body text"],
+          ["palette.gray.base", "#89979B", "Muted text"]
+        ]
+      },
+      "notes": "Point to design-tokens.md in the repo for the full map."
+    },
+    {
+      "type": "glossary",
+      "title": "Phrasebook example",
+      "glossary": [
+        {
+          "term": "MCP",
+          "plain": "Standard way to plug tools into agents",
+          "askBuilders": "Do you support MCP?"
+        },
+        {
+          "term": "RAG",
+          "plain": "Search your documents before answering",
+          "askBuilders": "What document stores do you connect to?"
+        }
+      ],
+      "notes": "Use phrasebook slides for mixed audiences."
+    },
+    {
+      "type": "closing",
+      "title": "Questions?",
+      "subtitle": "github.com/romiluz13/leafygreen-html-presentation",
+      "notes": "Thank the room. Share the repo link."
+    }
+  ]
+}

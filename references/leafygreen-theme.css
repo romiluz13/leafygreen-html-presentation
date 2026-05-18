@@ -1,0 +1,245 @@
+/* LeafyGreen theme for reveal.js — maps @leafygreen-ui/palette tokens to CSS.
+ * See design-tokens.md for token → usage reference.
+ * Fonts: verbatim from setup-leafygreen Step 4. */
+
+@font-face {
+  font-family: 'Euclid Circular A';
+  src:
+    url('https://d2va9gm4j17fy9.cloudfront.net/fonts/euclid-circular/EuclidCircularA-Regular-WebXL.woff2') format('woff2'),
+    url('https://d2va9gm4j17fy9.cloudfront.net/fonts/euclid-circular/EuclidCircularA-Regular-WebXL.woff') format('woff'),
+    url('https://d2va9gm4j17fy9.cloudfront.net/fonts/euclid-circular/EuclidCircularA-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'MongoDB Value Serif';
+  src:
+    url('https://d2va9gm4j17fy9.cloudfront.net/fonts/value-serif/MongoDBValueSerif-Regular.woff2') format('woff2'),
+    url('https://d2va9gm4j17fy9.cloudfront.net/fonts/value-serif/MongoDBValueSerif-Regular.woff') format('woff'),
+    url('https://d2va9gm4j17fy9.cloudfront.net/fonts/value-serif/MongoDBValueSerif-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+:root {
+  --palette-green-dark3: #001E2B;
+  --palette-green-dark2: #023430;
+  --palette-green-dark1: #00684A;
+  --palette-green-base: #00ED64;
+  --palette-gray-dark4: #112E39;
+  --palette-gray-dark3: #1C2D33;
+  --palette-gray-dark2: #3D4F58;
+  --palette-gray-dark1: #5C6C75;
+  --palette-gray-base: #89979B;
+  --palette-gray-light2: #E8EDF4;
+  --palette-blue-base: #016BF8;
+  --palette-black: #000000;
+  --palette-white: #FFFFFF;
+}
+
+body {
+  margin: 0;
+  background-color: var(--palette-green-dark3);
+  font-family: 'Euclid Circular A', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+.reveal-viewport {
+  background: var(--palette-green-dark3);
+}
+
+.reveal {
+  font-family: 'Euclid Circular A', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  color: var(--palette-gray-light2);
+}
+
+.reveal h1,
+.reveal h2,
+.reveal h3,
+.reveal h4 {
+  font-family: 'MongoDB Value Serif', Georgia, serif;
+  text-transform: none;
+  letter-spacing: normal;
+  font-weight: 400;
+}
+
+.reveal h1 { color: var(--palette-gray-light2); font-size: 2.4em; }
+.reveal h2 { color: var(--palette-green-base); font-size: 1.6em; margin-bottom: 0.6em; }
+.reveal h3 { color: var(--palette-gray-base); font-size: 1.1em; }
+
+.reveal a { color: var(--palette-blue-base); }
+
+.reveal .slides section {
+  text-align: left;
+}
+
+.reveal .slides section.title-slide,
+.reveal .slides section.section-slide,
+.reveal .slides section.center-slide {
+  text-align: center;
+}
+
+/* Slide frame — mirrors React deck Card on palette.black */
+.reveal .slides section.content-slide {
+  background: var(--palette-black);
+  border: 1px solid var(--palette-gray-dark2);
+  border-radius: 16px;
+  padding: 1.5em 2em;
+}
+
+.reveal .title-slide h1 {
+  background: linear-gradient(135deg, var(--palette-gray-light2), var(--palette-green-base));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.reveal .section-slide .section-label {
+  color: var(--palette-green-base);
+  font-family: 'Euclid Circular A', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-size: 0.85em;
+  margin-bottom: 0.5em;
+}
+
+.reveal ul, .reveal ol { line-height: 1.55; }
+.reveal li { margin-bottom: 0.45em; color: var(--palette-gray-light2); }
+
+/* Badge — maps to @leafygreen-ui/badge variant="lightgray" */
+.reveal .lg-badge {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 999px;
+  background: var(--palette-gray-dark2);
+  color: var(--palette-gray-light2);
+  font-family: 'Euclid Circular A', sans-serif;
+  font-size: 0.55em;
+  letter-spacing: 0.04em;
+}
+
+.reveal .lg-accent { color: var(--palette-green-base); }
+.reveal .lg-muted { color: var(--palette-gray-base); font-size: 0.85em; }
+
+.reveal blockquote {
+  border-left: 3px solid var(--palette-green-base);
+  background: color-mix(in srgb, var(--palette-gray-dark2) 25%, transparent);
+  padding: 0.8em 1em;
+  font-style: italic;
+  color: var(--palette-gray-base);
+  width: 100%;
+  box-shadow: none;
+}
+
+/* Table — maps to @leafygreen-ui/table dark styling */
+.reveal table.lg-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.62em;
+  margin-top: 0.5em;
+  font-family: 'Euclid Circular A', sans-serif;
+}
+
+.reveal table.lg-table th,
+.reveal table.lg-table td {
+  border: 1px solid var(--palette-gray-dark2);
+  padding: 0.45em 0.55em;
+  vertical-align: top;
+}
+
+.reveal table.lg-table th {
+  background: color-mix(in srgb, var(--palette-green-base) 8%, transparent);
+  color: var(--palette-green-base);
+  font-weight: 600;
+}
+
+.reveal table.lg-table td { color: var(--palette-gray-light2); }
+.reveal table.lg-table tr:nth-child(even) td {
+  background: color-mix(in srgb, var(--palette-white) 2%, transparent);
+}
+
+/* Card — maps to @leafygreen-ui/card */
+.reveal .lg-card {
+  background: var(--palette-black);
+  border: 1px solid var(--palette-gray-dark2);
+  border-radius: 8px;
+  padding: 0.75em 1em;
+  margin-bottom: 0.5em;
+  font-size: 0.75em;
+}
+
+.reveal .lg-card-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.5em;
+  font-size: 0.7em;
+}
+
+/* Code — maps to @leafygreen-ui/code dark surface */
+.reveal pre {
+  background: var(--palette-black);
+  border: 1px solid var(--palette-gray-dark2);
+  border-radius: 8px;
+  box-shadow: none;
+  width: 100%;
+}
+
+.reveal pre code {
+  font-family: 'Source Code Pro', 'SF Mono', Consolas, monospace;
+  color: var(--palette-gray-light2);
+  max-height: 420px;
+  padding: 16px;
+}
+
+.reveal .progress span {
+  background: linear-gradient(90deg, var(--palette-blue-base), var(--palette-green-base));
+}
+
+.reveal .slide-number {
+  color: var(--palette-gray-base);
+  background: transparent;
+  font-family: 'Euclid Circular A', sans-serif;
+}
+
+.reveal .controls button {
+  color: var(--palette-green-base);
+}
+
+.reveal section.small { font-size: 0.82em; }
+
+/* Header — maps to MongoDBLogoMark color="green-base" + title */
+.lg-header {
+  position: fixed;
+  top: 14px;
+  left: 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  z-index: 30;
+  pointer-events: none;
+}
+
+.lg-header-mark {
+  flex-shrink: 0;
+}
+
+.lg-header-title {
+  font-family: 'Euclid Circular A', sans-serif;
+  font-size: 13px;
+  color: var(--palette-gray-base);
+  letter-spacing: 0.02em;
+}
+
+.lg-footer {
+  position: fixed;
+  bottom: 12px;
+  left: 20px;
+  font-family: 'Euclid Circular A', sans-serif;
+  font-size: 11px;
+  color: var(--palette-gray-base);
+  z-index: 20;
+  pointer-events: none;
+}
