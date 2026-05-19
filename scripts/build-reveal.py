@@ -211,13 +211,85 @@ def slide_html(slide: dict) -> str:
     if stype == "code" and slide.get("code"):
         caption = esc(slide.get("caption", ""))
         caption_html = f'<p class="lg-muted fragment">{caption}</p>' if caption else ""
+        source = esc(slide.get("source", ""))
+        source_html = (
+            f'<p class="lg-muted lg-source">From <code>{source}</code></p>' if source else ""
+        )
+        language = esc(slide.get("language", ""))
+        lang_class = f' class="language-{language}"' if language else ""
         code = esc(slide["code"])
-        return f"""      <section>
+        line_count = code.count("\n") + 1
+        section_class = "code-slide"
+        if line_count > 14:
+            section_class += " dense"
+        return f"""      <section class="{section_class}">
         <h2>{title}</h2>
-        <pre><code data-trim data-line-numbers>
+        {source_html}
+        <pre><code data-trim data-line-numbers{lang_class}>
 {code}
         </code></pre>
         {caption_html}
+        {notes_block}
+      </section>"""
+
+    if stype == "flow" and slide.get("steps"):
+        subtitle = esc(slide.get("subtitle", ""))
+        subtitle_html = (
+            f'<p class="lg-muted lg-flow-subtitle">{subtitle}</p>' if subtitle else ""
+        )
+        nodes = []
+        for index, step in enumerate(slide["steps"]):
+            label = esc(step.get("label", ""))
+            sub = esc(step.get("sub", ""))
+            sub_html = f'<p class="lg-muted">{sub}</p>' if sub else ""
+            nodes.append(
+                f"""          <div class="lg-flow-node fragment fade-up">
+            <strong>{label}</strong>
+            {sub_html}
+          </div>"""
+            )
+            if index < len(slide["steps"]) - 1:
+                nodes.append('          <div class="lg-flow-arrow fragment fade-up">→</div>')
+        flow_html = "\n".join(nodes)
+        caption = esc(slide.get("caption", ""))
+        caption_html = (
+            f'<p class="lg-muted lg-flow-caption">{caption}</p>' if caption else ""
+        )
+        return f"""      <section class="flow-slide">
+        <h2>{title}</h2>
+        {subtitle_html}
+        <div class="lg-flow">
+{flow_html}
+        </div>
+        {caption_html}
+        {notes_block}
+      </section>"""
+
+    if stype == "compare" and slide.get("columns"):
+        cols = slide["columns"]
+        col_html = []
+        for col in cols:
+            heading = esc(col.get("heading", ""))
+            label = esc(col.get("label", ""))
+            label_html = f'<p class="lg-compare-label">{label}</p>' if label else ""
+            items = "".join(
+                f'<li class="fragment fade-up">{esc(line)}</li>' for line in col.get("items", [])
+            )
+            tone = col.get("tone", "")
+            tone_class = f" lg-compare-{tone}" if tone else ""
+            col_html.append(
+                f"""        <div class="lg-compare-col{tone_class}">
+          {label_html}
+          <h3>{heading}</h3>
+          <ul>{items}</ul>
+        </div>"""
+            )
+        cols_str = "\n".join(col_html)
+        return f"""      <section class="compare-slide small">
+        <h2>{title}</h2>
+        <div class="lg-compare">
+{cols_str}
+        </div>
         {notes_block}
       </section>"""
 
@@ -267,7 +339,11 @@ def build(deck: dict) -> str:
       slideNumber: 'c/t',
       transition: 'slide',
       center: true,
-      margin: 0.08,
+      width: 1280,
+      height: 720,
+      margin: 0.06,
+      minScale: 0.2,
+      maxScale: 1.6,
       plugins: [ RevealNotes, RevealHighlight ]
     }});
   </script>

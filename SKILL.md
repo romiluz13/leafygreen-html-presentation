@@ -93,13 +93,28 @@ Stylesheet (paste verbatim): [leafygreen-theme.css](references/leafygreen-theme.
 Fixed `.lg-header` and `.lg-footer` sit outside the reveal canvas. The theme:
 
 - Insets `.reveal` with `--lg-chrome-top` / `--lg-chrome-bottom` so slides centre in the remaining viewport
-- Uses flexbox on sections (`justify-content: center`) for vertical centring
-- Compacts `.content-slide` and `.small` card grids so dense slides fit without clipping
-- Sets `center: true` and `margin: 0.08` in `Reveal.initialize`
+- Uses reveal.js `center: true` (natural vertical centring per slide)
+- Compacts `.content-slide`, `.code-slide`, `.small`, and `.dense` cards so heavy slides fit without clipping
+- Pins virtual deck size to `1280×720` with `minScale: 0.2` so reveal scales every slide to any window
 
 If a slide still overflows, add `class="small"` to the section or split content across slides.
 
 The JSON builder auto-splits glossary slides (>4 terms) and bullet slides (>5 items), and applies `small` / `dense` classes when content is long.
+
+## Slide types in JSON
+
+| Type       | Use for                                              |
+| ---------- | ---------------------------------------------------- |
+| `title`    | Cover slide with badge + subtitle                    |
+| `section`  | Section divider (green)                              |
+| `content`  | Bullets, optional `quote`, optional `contentSlide`   |
+| `table`    | Data table (auto `small`/`dense` by row count)       |
+| `glossary` | Phrasebook cards `{ term, plain, askBuilders }`      |
+| `showcase` | 2×N card grid `{ title, lines[] }`                   |
+| `flow`     | Boxes + arrows diagram `{ steps: [{ label, sub }] }` |
+| `compare`  | 2-column then/now `{ columns: [{ heading, items, tone: "then"\\|"now" }] }` |
+| `code`     | Real code block `{ code, language, source, caption }` |
+| `closing`  | Q&A / thank-you slide                                |
 
 ## reveal.js config
 
